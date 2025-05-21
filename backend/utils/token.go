@@ -1,47 +1,46 @@
 package utils
 
 import (
-	"fmt"
+	"os"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
 )
 
-func GenerateToken(ttl time.Duration, payload interface{}, secretJWTKey string) (string, error) {
-	token := jwt.New(jwt.SigningMethodES256)
+var jwtKey = []byte(os.Getenv("JWT_SECRET"))
 
-	now := time.Now().UTC()
-	claims := token.Claims.(jwt.MapClaims)
-
-	claims["sub"] = payload
-	claims["exp"] = now.Add(ttl).Unix()
-	claims["iat"] = now.Unix()
-	claims["nbf"] = now.Unix()
-
-	tokenString, err := token.SignedString([]byte(secretJWTKey))
-
-	if err != nil {
-		return "", fmt.Errorf("generating JWT Token falied: %w", err)
-	}
-
-	return tokenString, nil
+type JWTClaim struct {
+	UserID uint
+	Email  string
+	jwt.RegisteredClaims
 }
 
-func ValidateToken(token string, signedJWTKey string) (interface{}, error) {
-	tok, err := jwt.Parse(token, func(jwtToken *jwt.Token) (interface{}, error) {
-		if _, ok := jwtToken.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("us¿nexpected method: %s", jwtToken.Header["alg"])
-		}
-		return []byte(signedJWTKey), nil
-	})
+func GenerateJWT(userID uint, email string) (string, error) {
+	claims := &JWTClaim{
+		UserID: userID,
+		Email:  email,
+		RegisteredClaims: jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour)),
+		},
+	}
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	return token.SignedString(jwtKey)
+}
 
+func ValidateToken(signedToken string) (*JWTClaim, error) {
+	token, err := jwt.ParseWithClaims(
+		signedToken,
+		&JWTClaim{},
+		func(token *jwt.Token) (interface{}, error) {
+			return jwtKey, nil
+		},
+	)
 	if err != nil {
-		return nil, fmt.Errorf("invalid token %w", err)
+		return nil, err
 	}
-	claims, ok := tok.Claims.(jwt.MapClaims)
-	if !ok || !tok.Valid {
-		return nil, fmt.Errorf("invalid token claim")
+	claims, ok := token.Claims.(*JWTClaim)
+	if !ok || !token.Valid {
+		return nil, err
 	}
-
-	return claims["sub"], nil
+	return claims, nil
 }
