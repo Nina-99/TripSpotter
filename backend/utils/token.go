@@ -10,14 +10,14 @@ import (
 var jwtKey = []byte(os.Getenv("JWT_SECRET"))
 
 type JWTClaim struct {
-	UserID uint
+	UserId uint
 	Email  string
 	jwt.RegisteredClaims
 }
 
-func GenerateJWT(userID uint, email string) (string, error) {
+func GenerateJWT(userId uint, email string) (string, error) {
 	claims := &JWTClaim{
-		UserID: userID,
+		UserId: userId,
 		Email:  email,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(24 * time.Hour)),

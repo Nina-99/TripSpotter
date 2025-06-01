@@ -6,16 +6,13 @@ import (
 	"os"
 
 	"github.com/Nina-99/TripSpotter/backend/models"
-	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
-func ConnectDB() *gorm.DB {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("🚀 Could not load environment variables", err)
-	}
+var DB *gorm.DB
+
+func ConnectDB() {
 	connectionStr := fmt.Sprintf(
 		"host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		os.Getenv("DB_HOST"), os.Getenv("DB_PORT"), os.Getenv("DB_USER"),
@@ -29,5 +26,8 @@ func ConnectDB() *gorm.DB {
 
 	fmt.Println(" Conneected Successfully to the DataBase")
 	db.AutoMigrate(&models.User{})
-	return db
+	db.AutoMigrate(&models.Layer{})
+	db.AutoMigrate(&models.Shapefile{})
+	db.AutoMigrate(&models.Review{})
+	DB = db
 }

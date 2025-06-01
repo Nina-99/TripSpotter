@@ -25,7 +25,8 @@ func NewUserServiceImpl(usersRepository repository.UsersRepository, validate *va
 func (a *UserServiceImpl) Login(req request.LoginUserRequest) (string, error) {
 	// Find username in database
 	user, err := a.UsersRepository.FindByEmail(req.Email)
-	if err != nil || bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.Password)) != nil {
+	match := utils.VerifyPassword(req.Password, user.Password)
+	if err != nil || match == false {
 		return "", err
 	}
 	return utils.GenerateJWT(user.Id, user.Email)

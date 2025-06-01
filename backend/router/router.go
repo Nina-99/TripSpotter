@@ -3,6 +3,7 @@ package router
 import (
 	"net/http"
 
+	"github.com/Nina-99/TripSpotter/backend/config"
 	"github.com/Nina-99/TripSpotter/backend/controller"
 	"github.com/Nina-99/TripSpotter/backend/middleware"
 	"github.com/gin-gonic/gin"
@@ -10,6 +11,10 @@ import (
 
 func NewRouter(userController *controller.UserController) *gin.Engine {
 	service := gin.Default()
+
+	config.SetupCORS(service)
+
+	service.Static("/uploads/images", "./uploads/images")
 
 	service.GET("", func(context *gin.Context) {
 		context.JSON(http.StatusOK, "welcome home")
@@ -24,11 +29,22 @@ func NewRouter(userController *controller.UserController) *gin.Engine {
 		api.POST("/register", userController.Register)
 		api.POST("/login", userController.Login)
 
+		api.GET("/weather/forecast", controller.GetForecast)
+
+		reviewRouter := api.Group("/reviews")
+		reviewRouter.POST("/upload", controller.UploadReview)
+
+		layersRouter := api.Group("/layers")
+		// layersRouter.Use(middleware.JWTAuthMiddleware())
+		// {
+		layersRouter.POST("/upload", controller.UploadShapefile)
+		layersRouter.GET("/", controller.GetAllLayers)
+		// }
+
 		usersRouter := api.Group("/users")
-		usersRouter.GET("/", userController.FindAll)
 		usersRouter.Use(middleware.JWTAuthMiddleware())
 		{
-			// usersRouter.GET("/", userController.FindAll)
+			usersRouter.GET("/", userController.FindAll)
 			usersRouter.DELETE("/:id", userController.Delete)
 			usersRouter.PUT("/:id", userController.Update)
 		}

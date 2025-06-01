@@ -18,6 +18,8 @@ func NewUserController(service service.UserService) *UserController {
 	return &UserController{userService: service}
 }
 
+// TODO: Function of Login
+// TODO: Función de Inicio de Sesión
 func (controller *UserController) Login(ctx *gin.Context) {
 	var req request.LoginUserRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
@@ -32,6 +34,8 @@ func (controller *UserController) Login(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"token": token})
 }
 
+// TODO: Function of user Register
+// TODO: Función de Registro de usuario
 func (controller *UserController) Register(ctx *gin.Context) {
 	var req request.RegisterUserRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
