@@ -1,0 +1,34 @@
+<div class="register_form">
+  <h3>Nuevo Usuario</h3>
+  <p class="separator">
+    <span>o</span>
+  </p>
+  <form (submit)="onSubmit()">
+    <div class="input_box">
+      <label for="username">Usuario</label>
+      <input
+        id="username"
+        [(ngModel)]="username"
+        name="username"
+        placeholder="Username"
+        required
+      />
+    </div>
+    <div class="input_box">
+      <label for="email">Email</label>
+      <input [(ngModel)]="email" name="email" placeholder="Email" required />
+    </div>
+    <div class="input_box">
+      <label for="password">Contraseña</label>
+      <input
+        [(ngModel)]="password"
+        name="password"
+        type="password"
+        placeholder="Password"
+        required
+      />
+    </div>
+    <button type="submit">Register</button>
+    <p class="sign_up">Tienes Cuenta? <a href="/login">Iniciar Sesión</a></p>
+  </form>
+</div>

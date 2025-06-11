@@ -28,18 +28,23 @@ func NewRouter(userController *controller.UserController) *gin.Engine {
 	{
 		api.POST("/register", userController.Register)
 		api.POST("/login", userController.Login)
+		api.GET("/role/:email", userController.GetUserByEmail)
 
 		api.GET("/weather/forecast", controller.GetForecast)
 
 		reviewRouter := api.Group("/reviews")
-		reviewRouter.POST("/upload", controller.UploadReview)
+		reviewRouter.Use(middleware.JWTAuthMiddleware())
+		{
+			reviewRouter.POST("/upload", controller.SubmitReview)
+			reviewRouter.POST("uploadImg", controller.UploadImage)
+		}
 
 		layersRouter := api.Group("/layers")
-		// layersRouter.Use(middleware.JWTAuthMiddleware())
-		// {
-		layersRouter.POST("/upload", controller.UploadShapefile)
-		layersRouter.GET("/", controller.GetAllLayers)
-		// }
+		layersRouter.Use(middleware.JWTAuthMiddleware())
+		{
+			layersRouter.POST("/upload", controller.UploadShapefile)
+			layersRouter.GET("/", controller.GetAllLayers)
+		}
 
 		usersRouter := api.Group("/users")
 		usersRouter.Use(middleware.JWTAuthMiddleware())

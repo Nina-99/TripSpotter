@@ -11,4 +11,5 @@ type UserService interface {
 	Update(userId uint, req request.RegisterUserRequest) error
 	Delete(userId uint) error
 	FindAll() ([]models.User, error)
+	FindEmail(Email string) (*models.User, error)
 }

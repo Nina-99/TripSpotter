@@ -26,7 +26,8 @@ func ConnectDB() {
 
 	fmt.Println(" Conneected Successfully to the DataBase")
 	db.AutoMigrate(&models.User{})
-	db.AutoMigrate(&models.Layer{})
+	db.AutoMigrate(&models.Image{})
+	db.AutoMigrate(&models.Marker{})
 	db.AutoMigrate(&models.Shapefile{})
 	db.AutoMigrate(&models.Review{})
 	DB = db

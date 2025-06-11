@@ -1,0 +1,236 @@
+<div class="map-container" id="map"></div>
+
+<div
+  id="mySidepanelLeft"
+  class="sidepanel"
+  aria-label="side panel"
+  aria-hidden="false"
+>
+  <div class="sidepanel-inner-wrapper">
+    <nav class="sidepanel-tabs-wrapper" aria-label="sidepanel tab navigation">
+      <ul class="sidepanel-tabs">
+        <li class="sidepanel-tab">
+          <a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="currentColor"
+              class="bi bi-list"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+              />
+            </svg>
+          </a>
+        </li>
+        <li class="sidepanel-tab">
+          <a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="currentColor"
+              class="bi bi-geo"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z"
+              />
+            </svg>
+          </a>
+        </li>
+        <li class="sidepanel-tab">
+          <a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-3">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="currentColor"
+              class="bi bi-geo"
+              viewBox="0 0 576 512"
+            >
+              <path
+                d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"
+              />
+            </svg>
+          </a>
+        </li>
+        <li class="sidepanel-tab">
+          <a href="#" class="sidebar-tab-link" role="tab" data-tab-link="tab-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="currentColor"
+              class="bi bi-gear"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"
+              />
+              <path
+                d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"
+              />
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="sidepanel-content-wrapper">
+      <div class="sidepanel-content">
+        <div class="sidepanel-tab-content" data-tab-content="tab-1">
+          <select
+            #tipoSelect
+            id="tipoSelect"
+            (mouseover)="openSelect(tipoSelect)"
+            (change)="onTipoChange($event)"
+          >
+            <option value="TODOS">Todos</option>
+            <option *ngFor="let tipo of tiposUnicos" [value]="tipo">
+              {{ tipo }}
+            </option>
+          </select>
+        </div>
+        <div class="sidepanel-tab-content" data-tab-content="tab-2">
+          <div [innerHTML]="selectedFeatureContent"></div>
+          <form (ngSubmit)="onSubmit()" #imageForm="ngForm">
+            <!-- <input type="text" name="marker_id" [(ngModel)]="markerId" required /> -->
+            <input type="file" (change)="onFileSelected($event)" required />
+            <button type="submit">Subir Imagen</button>
+          </form>
+          <!-- <div *ngFor="let img of images"> -->
+          <!--   <img [src]="'http://localhost:8888/api/' + img.path" width="200" /> -->
+          <!-- </div> -->
+        </div>
+        <div class="sidepanel-tab-content" data-tab-content="tab-3">
+          <div class="leaflet-tabs">
+            <div
+              id="tab-review"
+              class="leaflet-tab"
+              onclick="document.getElementById('tab-info').classList.remove('active'); document.getElementById('tab-review').classList.add('active');"
+            >
+              ⭐ Reseña
+            </div>
+          </div>
+
+          <div
+            class="leaflet-tab-content"
+            id="tab-revew-content"
+            [hidden]="!selectedFeature"
+          >
+            <h4>Deja una reseña</h4>
+            <label>Estrellas:</label>
+            <div class="stars">
+              <span
+                *ngFor="let star of [1, 2, 3, 4, 5]"
+                (click)="setReviewStars(star)"
+                (mouseover)="hoverStars = star"
+                (mouseleave)="hoverStars = 0"
+              >
+                <i
+                  class="star"
+                  [ngClass]="{
+                    filled: star <= (hoverStars || reviewStars),
+                    empty: star > (hoverStars || reviewStars),
+                  }"
+                >
+                  ★
+                </i>
+              </span>
+            </div>
+
+            <!-- Comentario -->
+            <br />
+            <label for="reviewText">Comentario:</label><br />
+            <textarea
+              id="reviewText"
+              [(ngModel)]="reviewText"
+              rows="4"
+              cols="25"
+              placeholder="Comparte tu experiencia..."
+            >
+            </textarea>
+
+            <!-- Botón -->
+            <br /><br />
+            <button (click)="submitReview()">Enviar reseña</button>
+          </div>
+        </div>
+        <div class="sidepanel-tab-content" data-tab-content="tab-4">
+          <div class="custom-panel">
+            <img
+              id="img3"
+              class="user-avatar"
+              src="assets/icons/user-perfil.png"
+              alt="user photo"
+            />
+            <p id="btnu1" class="username">{{ usernameLabel }}</p>
+            <a
+              id="btnu2"
+              class="custom-button blue"
+              href="/uploads"
+              *ngIf="role === 'admin'"
+              >Subir archivos</a
+            >
+            <a id="btnu3" class="custom-button red" href="/register"
+              >Cerrar Sesion</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sidepanel-toggle-container">
+    <button
+      class="sidepanel-toggle-button"
+      type="button"
+      aria-label="toggle side panel"
+    ></button>
+  </div>
+</div>
+
+<div id="div1">
+  <div id="rock1"></div>
+  <div id="rock2"></div>
+  <div id="rock3"></div>
+  <div id="rock4"></div>
+  <div id="rock5"></div>
+  <div id="rock6"></div>
+  <div id="rock7"></div>
+  <div id="rock8"></div>
+  <div id="diva1">
+    <div class="sidebar">
+      <!-- <h3>Pronóstico</h3> -->
+      @if (forecastList.length > 0) {
+        <p>
+          <strong>{{ locationLabel }}</strong>
+        </p>
+        <ul>
+          @for (item of forecastList; track item.dt_txt) {
+            <li>
+              <strong>{{ item.dt_txt }}</strong
+              ><br />
+              {{ item.weather[0].description }} - {{ item.main.temp }} °C
+              <img
+                [src]="
+                  'https://openweathermap.org/img/wn/' +
+                  item.weather[0].icon +
+                  '@2x.png'
+                "
+                [alt]="item.weather[0].description"
+                width="50"
+                height="50"
+              />
+            </li>
+          }
+        </ul>
+      } @else {
+        <p>Haz clic en el mapa para obtener pronóstico.</p>
+      }
+    </div>
+  </div>
+</div>

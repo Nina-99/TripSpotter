@@ -66,3 +66,7 @@ func (a *UserServiceImpl) Delete(userId uint) error {
 func (a *UserServiceImpl) FindAll() ([]models.User, error) {
 	return a.UsersRepository.FindAll()
 }
+
+func (a *UserServiceImpl) FindEmail(Email string) (*models.User, error) {
+	return a.UsersRepository.FindByEmail(Email)
+}

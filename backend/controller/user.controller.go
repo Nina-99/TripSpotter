@@ -87,3 +87,13 @@ func (controller *UserController) Delete(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusOK, gin.H{"message": "deleted"})
 }
+
+func (controller *UserController) GetUserByEmail(ctx *gin.Context) {
+	Email := ctx.Param("email")
+	user, err := controller.userService.FindEmail(Email)
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
+		return
+	}
+	ctx.JSON(http.StatusOK, user)
+}

@@ -1,0 +1,6 @@
+<ul>
+  <!-- <li *ngFor="let user of users">{{ user.username }} - {{ user.email }}</li> -->
+  @for (user of users; track user.id) {
+    <li>{{ user.username }} - {{ user.email }}</li>
+  }
+</ul>
