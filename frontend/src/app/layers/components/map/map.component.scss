@@ -178,16 +178,64 @@ textarea {
   background-color: #b91c1c;
 }
 
-#tipoSelect {
-  border-style: none;
-  z-index: 20000;
-  background: #0288d1;
-  font-size: 11px;
+/* #tipoSelect { */
+/*   border-style: none; */
+/*   z-index: 20000; */
+/*   background: #0288d1; */
+/*   font-size: 11px; */
+/* } */
+/**/
+/* #tipoSelect:hover { */
+/*   background: #e8f5e9; */
+/* } */
+
+.filter-panel {
+  background: #fff;
+  /* padding: 1rem; */
+  /* border-radius: 12px; */
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+  /* width: 260px; */
+  /* margin: 1rem; */
+  background-color: #0288d1;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-#tipoSelect:hover {
-  background: #e8f5e9;
+.filter-panel h3 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  color: #2c3e50;
 }
+
+.filter-panel label {
+  display: block;
+  margin-top: 0.5rem;
+  font-weight: 600;
+}
+
+.filter-panel select,
+.filter-panel button {
+  background: #0288d1;
+  font-size: 11px;
+  width: 100%;
+  padding: 0.4rem;
+  margin-top: 0.3rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.filter-panel button {
+  background-color: #e8f5e4;
+  color: #0288d1;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.3s;
+}
+
+.filter-panel button:hover {
+  background-color: white;
+}
+
 
 :host {
   display: block;

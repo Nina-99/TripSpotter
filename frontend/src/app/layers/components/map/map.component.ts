@@ -13,12 +13,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { WeatherService } from '../../services/weather.service';
 import { LayerService } from '../../services/layer.service';
-import { EmailService } from '../../services/email.service';
 import { getPopupService } from '../../services/popup.service';
 import { environment } from '../../../../environments/environment';
 import { ReviewService } from '../../services/review.service';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../../../auth/core/services/auth.service';
 
 @Component({
   selector: 'app-map',
@@ -70,12 +68,8 @@ export class MapComponent implements OnInit {
     }
 
     if (typeof window !== 'undefined') {
-    // this.role = localStorage.getItem('role');
-      this.usernameLabel = localStorage.getItem('username')
+      this.usernameLabel = localStorage.getItem('username');
     }
-    // this.emailService.emailLabel$.subscribe(
-    //   (label) => (this.emailLabel = label),
-    // );
 
     // Importar Leaflet dinámicamente solo en navegador
     import('leaflet').then((mod) => {
@@ -129,11 +123,6 @@ export class MapComponent implements OnInit {
     const L = this.L;
     const key = this.apiKey;
 
-    // const streets = L.tileLayer.Unwired({
-    //   key,
-    //   scheme: 'streets',
-    //   crossOrigin: false,
-    // });
     const satellite = L.tileLayer(
       'https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.{ext}',
       {
@@ -217,7 +206,9 @@ export class MapComponent implements OnInit {
     this.fetchGeojsonLayers();
   }
 
-  tiposUnicos: string[] = [];
+  vocacionUnicos: string[] = [];
+  deptoUnicos: string[] = [];
+  tempoUnicos: string[] = [];
   tipoSeleccionado: string = 'TODOS';
 
   openSelect(selectElement: HTMLSelectElement): void {
@@ -225,13 +216,13 @@ export class MapComponent implements OnInit {
     selectElement.focus();
   }
 
-  onTipoChange(event: Event): void {
-    const selectElement = event.target as HTMLSelectElement;
-    const tipo = selectElement.value;
-    this.tipoSeleccionado = tipo;
-    this.clearAllLayers();
-    this.fetchGeojsonLayers(tipo);
-  }
+  // onTipoChange(event: Event): void {
+  //   const selectElement = event.target as HTMLSelectElement;
+  //   const tipo = selectElement.value;
+  //   this.tipoSeleccionado = tipo;
+  //   this.clearAllLayers();
+  //   this.fetchGeojsonLayers(tipo);
+  // }
 
   private clearAllLayers(): void {
     this.map.eachLayer((layer: any) => {
@@ -242,30 +233,47 @@ export class MapComponent implements OnInit {
     this.layerControl = this.L.control.layers().addTo(this.map); // Reinicia controles
   }
 
-  private fetchGeojsonLayers(tipoFiltro: string = 'TODOS'): void {
+  private fetchGeojsonLayers(
+    filtros: {
+      vocacion?: string;
+      departamento?: string;
+      temporalidad?: string;
+    } = {},
+  ): void {
     const L = this.L;
     const legendItems: any[] = [];
 
     this.layerService.getLayer().subscribe((layersData: any) => {
       const tiposSet = new Set<string>(); // Para tipos únicos
+      const deptoSet = new Set<string>(); // Para tipos únicos
+      const tempoSet = new Set<string>(); // Para tipos únicos
 
       layersData.forEach((featureItem: any) => {
         const geojson = featureItem.geojson;
 
         const leafletLayer = L.geoJSON(geojson, {
           filter: (feature: any) => {
-            const vocacion = feature.properties.vocacion;
+            const props = feature.properties;
             const tipo = feature.properties.tipo || 'sin tipo';
-            tiposSet.add(vocacion);
-            const incluir = tipoFiltro === 'TODOS' || vocacion === tipoFiltro;
+            tiposSet.add(props.vocacion);
+            deptoSet.add(props.departamen);
+            tempoSet.add(props.temporalid);
+            const incluir =
+              (!filtros.vocacion || props.vocacion === filtros.vocacion) &&
+              (!filtros.departamento ||
+                props.departamen === filtros.departamento) &&
+              (!filtros.temporalidad ||
+                props.temporalid === filtros.temporalidad);
 
             // Solo agrega a la leyenda si se incluye y no está ya
-            if (incluir && !legendItems.some((item) => item.label === tipo)) {
-              legendItems.push({
-                label: tipo,
-                type: 'image',
-                url: `assets/icons/${tipo}.png`,
-              });
+            if (incluir) {
+              if (incluir && !legendItems.some((item) => item.label === tipo)) {
+                legendItems.push({
+                  label: tipo,
+                  type: 'image',
+                  url: `assets/icons/${tipo}.png`,
+                });
+              }
             }
             return incluir;
           },
@@ -291,7 +299,7 @@ export class MapComponent implements OnInit {
                 this.selectedFeatureContent =
                   this.popupService.getPanelContent(feature);
                 this.selectedSiteId = feature.properties.ogc_fid;
-                this.markerId = feature.properties.id
+                this.markerId = feature.properties.id;
                 console.log('este es el Id: ', this.selectedSiteId);
               });
               this.cdr.detectChanges();
@@ -315,12 +323,17 @@ export class MapComponent implements OnInit {
         this.map.addLayer(leafletLayer);
       });
 
-      this.tiposUnicos = Array.from(tiposSet);
-      console.log('Tipos únicos:', this.tiposUnicos);
+      this.vocacionUnicos = Array.from(tiposSet);
+      this.deptoUnicos = Array.from(deptoSet);
+      this.tempoUnicos = Array.from(tempoSet);
+      console.log('Tipos únicos:', this.vocacionUnicos);
       this.cdr.detectChanges();
 
-      if (this.tiposUnicos.length === 0) {
-        this.tiposUnicos = Array.from(tiposSet);
+      if (this.vocacionUnicos.length === 0) {
+        this.vocacionUnicos = Array.from(tiposSet);
+      }
+      if (this.deptoUnicos.length ===0) {
+        this.deptoUnicos = Array.from(deptoSet)
       }
       if (this.leyendaControl) {
         this.map.removeControl(this.leyendaControl);
@@ -339,6 +352,17 @@ export class MapComponent implements OnInit {
           .addTo(this.map);
       }
     });
+  }
+
+  filtros = {
+    vocacion: '',
+    departamento: '',
+    temporalidad: '',
+  };
+
+  aplicarFiltros(): void {
+    this.clearAllLayers();
+    this.fetchGeojsonLayers(this.filtros);
   }
 
   private getForecast(lat: number, lon: number): void {

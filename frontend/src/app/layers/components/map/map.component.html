@@ -83,17 +83,48 @@
     <div class="sidepanel-content-wrapper">
       <div class="sidepanel-content">
         <div class="sidepanel-tab-content" data-tab-content="tab-1">
-          <select
-            #tipoSelect
-            id="tipoSelect"
-            (mouseover)="openSelect(tipoSelect)"
-            (change)="onTipoChange($event)"
-          >
-            <option value="TODOS">Todos</option>
-            <option *ngFor="let tipo of tiposUnicos" [value]="tipo">
-              {{ tipo }}
-            </option>
-          </select>
+          <div class="filter-panel">
+            <h3>Filtrar Atractivos</h3>
+            <form (ngSubmit)="aplicarFiltros()">
+              <label>Vocación:</label>
+              <select [(ngModel)]="filtros.vocacion" name="vocacion">
+                <option value="">Todas</option>
+                <option *ngFor="let voc of vocacionUnicos" [value]="voc">
+                  {{ voc }}
+                </option>
+              </select>
+
+              <label>Departamento:</label>
+              <select [(ngModel)]="filtros.departamento" name="departamento">
+                <option value="">Todos</option>
+                <option *ngFor="let dpto of deptoUnicos" [value]="dpto">
+                  {{ dpto }}
+                </option>
+              </select>
+
+              <label>Temporalidad:</label>
+              <select [(ngModel)]="filtros.temporalidad" name="temporalidad">
+                <option value="">Todas</option>
+                <option *ngFor="let temp of tempoUnicos" [value]="temp">
+                  {{ temp }}
+                </option>
+              </select>
+
+              <button type="submit">Aplicar Filtros</button>
+            </form>
+          </div>
+
+          <!-- <select -->
+          <!--   #tipoSelect -->
+          <!--   id="tipoSelect" -->
+          <!--   (mouseover)="openSelect(tipoSelect)" -->
+          <!--   (change)="onTipoChange($event)" -->
+          <!-- > -->
+          <!--   <option value="TODOS">Todos</option> -->
+          <!--   <option *ngFor="let tipo of tiposUnicos" [value]="tipo"> -->
+          <!--     {{ tipo }} -->
+          <!--   </option> -->
+          <!-- </select> -->
         </div>
         <div class="sidepanel-tab-content" data-tab-content="tab-2">
           <div [innerHTML]="selectedFeatureContent"></div>
